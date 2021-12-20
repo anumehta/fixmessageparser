@@ -46,10 +46,12 @@ public class FIXMessage {
     }
 
     /**
-     * Creates and returns a {@link RepeatingGroup}.
+     * Add a {@link RepeatingGroup} instance if it checks out based on the indicatorTag and numberOfGroups.
      * Called when an indicator tag is first read. Caller can then create and add all groups into the returned object.
      */
-    public RepeatingGroup createRepeatingGroup(Integer indicatorTag, Integer numberOfGroups) throws FIXMessageException {
+    public void addRepeatingGroup(RepeatingGroup repeatingGroup) throws FIXMessageException {
+        Integer indicatorTag = repeatingGroup.getIndicatorTag();
+        Integer numberOfGroups = repeatingGroup.getNumberOfGroups();
         if (!RG_INDICATOR_TAGS.contains(indicatorTag)) {
             // Attempting to create a repeating group with an invalid indicator tag.
             throw new FIXMessageException(FIXMessageException.NOT_INDICATOR_TAG);
@@ -62,10 +64,7 @@ public class FIXMessage {
             // Attempting to create repeating group with an indicator tag that has already been seen.
             throw new FIXMessageException(FIXMessageException.REPEATING_GROUP_ALREADY_EXISTS);
         }
-
-        RepeatingGroup repeatingGroup = new RepeatingGroup(indicatorTag, numberOfGroups);
         repeatingGroups.put(indicatorTag, repeatingGroup);
-        return repeatingGroup;
     }
 
     /**
@@ -91,6 +90,11 @@ public class FIXMessage {
 
     public Map<Integer, RepeatingGroup> getRepeatingGroups() {
         return repeatingGroups;
+    }
+
+    public void reset() {
+        nonRepeatingTagsAndValues.clear();
+        repeatingGroups.clear();
     }
 
 

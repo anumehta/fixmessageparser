@@ -21,14 +21,25 @@ public class RepeatingGroup {
         }
     }
 
-    private final int indicatorTag;
-    private final int numberOfGroups;
-    private final List<Group> groups;
+    private Integer indicatorTag;
+    private Integer numberOfGroups;
+    private final List<Group> groups = new ArrayList<>();
 
-    public RepeatingGroup(int indicatorTag, int numberOfGroups) {
+    public RepeatingGroup(Integer indicatorTag, Integer numberOfGroups) {
         this.indicatorTag = indicatorTag;
         this.numberOfGroups = numberOfGroups;
-        groups = new ArrayList<>(numberOfGroups);
+    }
+
+    public RepeatingGroup() {}
+
+    public RepeatingGroup setIndicatorTag(Integer indicatorTag) {
+        this.indicatorTag = indicatorTag;
+        return this;
+    }
+
+    public RepeatingGroup setNumberOfGroups(Integer numberOfGroups) {
+        this.numberOfGroups = numberOfGroups;
+        return this;
     }
 
     public void addGroup(Group group) throws RepeatingGroupException {
@@ -39,11 +50,11 @@ public class RepeatingGroup {
         groups.add(group);
     }
 
-    public int getIndicatorTag() {
+    public Integer getIndicatorTag() {
         return indicatorTag;
     }
 
-    public int getNumberOfGroups() {
+    public Integer getNumberOfGroups() {
         return numberOfGroups;
     }
 
@@ -56,6 +67,12 @@ public class RepeatingGroup {
      */
     public boolean isValid() {
         return groups.size() == numberOfGroups;
+    }
+
+    public void reset() {
+        indicatorTag = null;
+        numberOfGroups = null;
+        groups.clear();
     }
 
     private StringBuffer sb = new StringBuffer();

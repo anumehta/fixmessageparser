@@ -58,7 +58,8 @@ public class FIXMessageParser {
         List<Integer> groupTags = FIXMessageUtils.GROUP_TAGS.get(indicatorTag);
         Integer firstTag = groupTags.get(0);
 
-        RepeatingGroup repeatingGroup = fixMessage.createRepeatingGroup(indicatorTag, numberOfGroups);
+        RepeatingGroup repeatingGroup = new RepeatingGroup(indicatorTag, numberOfGroups);
+        fixMessage.addRepeatingGroup(repeatingGroup);
 
         readAndSetNextTagAndValue(msgBB); // Read the first tag of the first group.
         boolean stillProcessingGroup;

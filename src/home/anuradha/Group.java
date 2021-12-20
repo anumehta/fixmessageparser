@@ -22,11 +22,18 @@ public class Group {
         }
     }
 
-    private final List<Integer> groupTags;
+    private List<Integer> groupTags;
     private final Map<Integer, String> tagsAndValues = new LinkedHashMap<>(4);
 
     public Group(List<Integer> groupTags) {
         this.groupTags = groupTags;
+    }
+
+    public Group() {}
+
+    public Group setGroupTags(List<Integer> groupTags) {
+        this.groupTags = groupTags;
+        return this;
     }
 
     public Map<Integer, String> getAllTagsAndValues() {
@@ -57,6 +64,11 @@ public class Group {
      */
     public boolean isValid() {
         return tagsAndValues.containsKey(groupTags.get(0)) && tagsAndValues.containsKey(groupTags.get(1));
+    }
+
+    public void reset() {
+        tagsAndValues.clear();
+        groupTags = null;
     }
 
     private StringBuffer sb = new StringBuffer();

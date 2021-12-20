@@ -106,9 +106,8 @@ public class FIXMessageParserTests {
         assertEquals(Group.GroupException.INVALID_GROUP, e.getMessage());
     }
 
-    private static FIXMessage getFIXMessage(String msg) throws RepeatingGroup.RepeatingGroupException, FIXMessage.FIXMessageException, Group.GroupException {
+    private FIXMessage getFIXMessage(String msg) throws RepeatingGroup.RepeatingGroupException, FIXMessage.FIXMessageException, Group.GroupException {
         ByteBuffer bb1 = constructInput(msg);
-        FIXMessageParser parser = new FIXMessageParser();
         return parser.parse(bb1);
     }
 
